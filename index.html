@@ -16,12 +16,12 @@
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 @keyframes pulse{0%,100%{opacity:.6}50%{opacity:1}}
 @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-@keyframes orbit{from{transform:rotate(0deg) translateX(180px) rotate(0deg)}to{transform:rotate(360deg) translateX(180px) rotate(-360deg)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes countUp{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
 
 body{font-family:'Inter',ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
 a{color:inherit;text-decoration:none}
 
-/* Animated background */
 .bg-grid{position:fixed;inset:0;z-index:0;opacity:.04;
   background-image:linear-gradient(rgba(255,255,255,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.1) 1px,transparent 1px);
   background-size:60px 60px}
@@ -42,18 +42,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 0;
 .nav-links a:hover{color:var(--text);background:rgba(255,255,255,.05)}
 .nav-links a.active{color:var(--accent2);background:rgba(108,92,231,.12)}
 
-/* Sections */
 .page{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:100px 24px 60px;min-height:100vh}
 section{animation:fadeUp .6s ease both}
 
 /* Hero */
-.hero{display:grid;grid-template-columns:1.3fr .7fr;gap:40px;align-items:center;min-height:80vh}
-.hero-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border-radius:99px;
-  background:rgba(108,92,231,.1);border:1px solid rgba(108,92,231,.25);font-size:.85rem;font-weight:600;color:var(--accent2);margin-bottom:20px}
-.hero-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green);animation:pulse 2s infinite}
-.hero h1{font-size:clamp(2.5rem,5vw,4rem);font-weight:900;letter-spacing:-1.5px;line-height:1.1;margin-bottom:16px;
+.hero{display:grid;grid-template-columns:1.3fr .7fr;gap:48px;align-items:center;min-height:80vh}
+.hero h1{font-size:clamp(2.5rem,5vw,3.8rem);font-weight:900;letter-spacing:-1.5px;line-height:1.1;margin-bottom:16px;
   background:linear-gradient(135deg,#fff 30%,var(--accent2) 70%,var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 200%;animation:gradientShift 6s ease infinite}
-.hero p{color:var(--muted);font-size:1.1rem;max-width:520px;margin-bottom:28px;font-weight:500}
+.hero-sub{color:var(--accent2);font-weight:700;font-size:1.15rem;margin-bottom:12px;letter-spacing:.5px}
+.hero p{color:var(--muted);font-size:1.05rem;max-width:540px;margin-bottom:28px;font-weight:500}
 .hero-btns{display:flex;gap:12px;flex-wrap:wrap}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:14px;font-weight:700;font-size:.95rem;transition:.25s;border:none;cursor:pointer}
 .btn-primary{background:linear-gradient(135deg,var(--accent),#8b5cf6);color:#fff;box-shadow:0 4px 24px rgba(108,92,231,.4)}
@@ -61,25 +58,18 @@ section{animation:fadeUp .6s ease both}
 .btn-outline{background:transparent;border:1px solid rgba(255,255,255,.12);color:var(--text)}
 .btn-outline:hover{border-color:rgba(108,92,231,.5);background:rgba(108,92,231,.08);transform:translateY(-2px)}
 
-/* Stats ring */
-.stats-visual{position:relative;display:flex;justify-content:center;align-items:center;height:100%}
-.orbit-ring{width:360px;height:360px;border-radius:50%;border:1px dashed rgba(255,255,255,.06);position:relative;animation:float 6s ease-in-out infinite}
-.orbit-item{position:absolute;animation:orbit 20s linear infinite}
-.orbit-item:nth-child(2){animation-delay:-5s}
-.orbit-item:nth-child(3){animation-delay:-10s}
-.orbit-item:nth-child(4){animation-delay:-15s}
-.orbit-item .ob{padding:12px 18px;border-radius:14px;background:var(--surface2);border:1px solid rgba(255,255,255,.08);
-  font-weight:800;font-size:.85rem;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,.3)}
-.orbit-item .ob strong{display:block;font-size:1.3rem;
+/* Stats cards on hero */
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stat-card{padding:24px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);
+  text-align:center;backdrop-filter:blur(10px);animation:countUp .6s ease both}
+.stat-card:nth-child(2){animation-delay:.1s}
+.stat-card:nth-child(3){animation-delay:.2s}
+.stat-card:nth-child(4){animation-delay:.3s}
+.stat-card strong{font-size:2rem;display:block;
   background:linear-gradient(135deg,var(--accent2),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.center-stat{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;
-  padding:28px;border-radius:50%;width:130px;height:130px;display:grid;place-items:center;
-  background:radial-gradient(circle,rgba(108,92,231,.15),transparent);border:1px solid rgba(108,92,231,.2)}
-.center-stat strong{font-size:2rem;display:block;
-  background:linear-gradient(135deg,var(--accent2),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.center-stat span{font-size:.75rem;color:var(--muted);font-weight:600}
+.stat-card span{font-size:.8rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
 
-/* Cards */
+/* Glass cards */
 .section-title{font-size:2rem;font-weight:900;letter-spacing:-.5px;margin-bottom:8px}
 .section-sub{color:var(--muted);margin-bottom:32px;font-weight:500}
 .glass{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:24px;
@@ -102,9 +92,11 @@ section{animation:fadeUp .6s ease both}
   background:linear-gradient(90deg,var(--accent),var(--cyan));opacity:0;transition:.3s}
 .proj-card:hover::before{opacity:1}
 .proj-card h3{font-size:1.05rem;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:8px}
-.proj-card p{color:var(--muted);font-size:.9rem;margin-bottom:14px;font-weight:500}
+.proj-card p{color:var(--muted);font-size:.88rem;margin-bottom:12px;font-weight:500;line-height:1.6}
 .proj-link{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:.9rem;color:var(--accent2);transition:.2s}
 .proj-link:hover{color:var(--cyan);gap:10px}
+.proj-impact{margin-top:10px;padding:8px 14px;border-radius:10px;background:rgba(34,211,153,.06);border:1px solid rgba(34,211,153,.15);
+  font-size:.82rem;color:var(--green);font-weight:600}
 
 /* About */
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
@@ -113,6 +105,15 @@ section{animation:fadeUp .6s ease both}
   border:1px solid rgba(108,92,231,.15)}
 .highlight-box h4{font-weight:800;margin-bottom:6px;color:var(--text)}
 .highlight-box p{color:var(--muted);font-size:.9rem;font-weight:500}
+
+/* Experience */
+.exp-card{margin-bottom:16px;padding:28px}
+.exp-card .role{font-size:1.15rem;font-weight:800;color:var(--text)}
+.exp-card .company{color:var(--accent2);font-weight:700;font-size:.95rem}
+.exp-card .date{color:var(--muted);font-size:.85rem;font-weight:600;margin-bottom:12px}
+.exp-card ul{list-style:none;padding:0}
+.exp-card ul li{position:relative;padding-left:18px;margin-bottom:8px;color:var(--muted);font-size:.9rem;font-weight:500;line-height:1.6}
+.exp-card ul li::before{content:'▸';position:absolute;left:0;color:var(--accent2);font-weight:700}
 
 /* Contact */
 .contact-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -131,16 +132,14 @@ section{animation:fadeUp .6s ease both}
 .tl-item .tl-sub{color:var(--accent2);font-size:.85rem;font-weight:600;margin-bottom:4px}
 .tl-item p{color:var(--muted);font-size:.9rem;font-weight:500}
 
-/* Footer */
 footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.05);padding:32px 24px;text-align:center;color:var(--muted);font-size:.9rem;font-weight:600}
 footer strong{color:var(--text)}
 
-/* Responsive */
 @media(max-width:900px){
   .hero{grid-template-columns:1fr;text-align:center}
   .hero p{margin:0 auto 28px}
   .hero-btns{justify-content:center}
-  .stats-visual{display:none}
+  .stats-grid{grid-template-columns:1fr 1fr}
   .skills-grid,.contact-cards{grid-template-columns:1fr}
   .projects-grid,.about-grid{grid-template-columns:1fr}
   .nav-links a{padding:6px 10px;font-size:.8rem}
@@ -163,6 +162,7 @@ footer strong{color:var(--text)}
     <ul class="nav-links" id="navLinks">
       <li><a href="#/" data-route="/">Home</a></li>
       <li><a href="#/about" data-route="/about">About</a></li>
+      <li><a href="#/experience" data-route="/experience">Experience</a></li>
       <li><a href="#/skills" data-route="/skills">Skills</a></li>
       <li><a href="#/projects" data-route="/projects">Projects</a></li>
       <li><a href="#/contact" data-route="/contact">Contact</a></li>
@@ -176,7 +176,7 @@ footer strong{color:var(--text)}
 
 <footer>
   <strong>© 2026 Amruta Naik</strong><br/>
-  Data Engineering · Analytics Engineering · AI-Ready Platforms
+  Data Engineering · Analytics Engineering · AI-Powered Platforms
 </footer>
 
 <script>
@@ -185,9 +185,9 @@ const pages={
 <section>
   <div class="hero">
     <div>
-      <div class="hero-badge"><span class="hero-dot"></span> Open to Data Engineering · Analytics · BI</div>
-      <h1>Building Data Systems That Scale</h1>
-      <p>Data Engineer with 3+ years of experience crafting reliable pipelines, analytics layers, and cloud-native platforms — now expanding into LLM & RAG systems.</p>
+      <div class="hero-sub">DATA ENGINEER · ANALYTICS ENGINEER</div>
+      <h1>Amruta Chandrakant Naik</h1>
+      <p>Data Engineer with 3+ years designing enterprise-scale data systems, building ETL/ELT pipelines, and implementing data quality frameworks across AWS, Azure, Snowflake, Kafka, and Databricks — with hands-on experience in GenAI, LLMs, and RAG systems.</p>
       <div class="hero-btns">
         <a class="btn btn-primary" href="#/projects">View Projects →</a>
         <a class="btn btn-outline" href="#/contact">Get in Touch</a>
@@ -195,14 +195,11 @@ const pages={
         <a class="btn btn-outline" href="https://github.com/Amrutanaik98" target="_blank">GitHub ↗</a>
       </div>
     </div>
-    <div class="stats-visual">
-      <div class="orbit-ring">
-        <div class="orbit-item"><div class="ob"><strong>3+</strong>Years Exp</div></div>
-        <div class="orbit-item"><div class="ob"><strong>8+</strong>Projects</div></div>
-        <div class="orbit-item"><div class="ob"><strong>20+</strong>Tools</div></div>
-        <div class="orbit-item"><div class="ob"><strong>AWS</strong>Azure</div></div>
-      </div>
-      <div class="center-stat"><strong>DE</strong><span>Data Engineer</span></div>
+    <div class="stats-grid">
+      <div class="stat-card"><strong>3+</strong><span>Years Experience</span></div>
+      <div class="stat-card"><strong>8+</strong><span>Major Projects</span></div>
+      <div class="stat-card"><strong>20+</strong><span>Technologies</span></div>
+      <div class="stat-card"><strong>MS</strong><span>Northeastern University</span></div>
     </div>
   </div>
 </section>`,
@@ -210,81 +207,126 @@ const pages={
 "/about": `
 <section>
   <h2 class="section-title">About Me</h2>
-  <p class="section-sub">From messy data to trustworthy systems.</p>
+  <p class="section-sub">Turning raw data into meaningful impact through engineering and AI.</p>
   <p class="about-text" style="margin-bottom:24px">
-    MS in Information Systems from Northeastern University with 3 years at Amdocs building scalable data solutions.
-    I enjoy taking messy data problems and turning them into trustworthy, governed, performance-ready systems.
+    Data Engineer with 3 years of experience designing and maintaining enterprise-scale data systems, building ETL/ELT pipelines, and implementing data quality frameworks. I enjoy taking messy data problems and turning them into trustworthy, governed, performance-ready systems that enable data-driven decisions.
   </p>
   <div class="about-grid">
     <div class="highlight-box">
-      <h4>🎓 Education</h4>
-      <p>MS in Information Systems — Northeastern University, Boston</p>
+      <h4>🎓 M.S. Information Systems</h4>
+      <p>Northeastern University, Boston — Dec 2025</p>
     </div>
     <div class="highlight-box">
-      <h4>💼 Experience</h4>
-      <p>3 years at Amdocs — scalable data platforms & enterprise pipelines</p>
+      <h4>🎓 B.E. Electronics & Telecom</h4>
+      <p>University of Mumbai, India — Oct 2020</p>
     </div>
     <div class="highlight-box">
-      <h4>🎯 Focus Areas</h4>
-      <p>ELT pipelines, Data modeling, DQ & observability, BI enablement</p>
+      <h4>💼 Professional Experience</h4>
+      <p>3 years at Amdocs — scalable data platforms, real-time streaming, data quality frameworks</p>
     </div>
     <div class="highlight-box">
-      <h4>🚀 Expanding Into</h4>
-      <p>GenAI integrations — RAG, LLMs, vector search, embeddings</p>
+      <h4>🎯 Core Focus Areas</h4>
+      <p>ELT pipelines, dimensional modeling, data quality & observability, BI enablement, GenAI & RAG systems</p>
     </div>
   </div>
   <div style="margin-top:32px">
     <h3 class="section-title" style="font-size:1.4rem">Journey</h3>
     <div class="timeline">
       <div class="tl-item">
-        <div class="tl-sub">2024 – Present</div>
-        <h4>MS in Information Systems — Northeastern</h4>
-        <p>Deep-diving into data engineering, analytics, and AI/ML systems.</p>
+        <div class="tl-sub">2024 – Dec 2025</div>
+        <h4>M.S. Information Systems — Northeastern University</h4>
+        <p>Advanced studies in data engineering, analytics, cloud architecture, and AI/ML systems.</p>
       </div>
       <div class="tl-item">
-        <div class="tl-sub">2021 – 2024</div>
-        <h4>Software Engineer — Amdocs</h4>
-        <p>Built scalable ETL/ELT pipelines, data warehouse solutions, and BI dashboards.</p>
+        <div class="tl-sub">Jul 2022 – Dec 2023</div>
+        <h4>Data Engineer — Amdocs</h4>
+        <p>Designed ETL pipelines processing 50K+ daily records, engineered real-time Kafka streams, built ML-powered data quality frameworks. Reduced cloud costs by 18%.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-sub">Feb 2021 – Jul 2022</div>
+        <h4>Associate Data Engineer — Amdocs</h4>
+        <p>Developed production ETL pipelines for 1M+ monthly records, architected star schema models, eliminated 70% of manual verification through automated validation.</p>
       </div>
     </div>
   </div>
 </section>`,
 
+"/experience": `
+<section>
+  <h2 class="section-title">Experience</h2>
+  <p class="section-sub">3 years building enterprise-scale data systems at Amdocs.</p>
+
+  <div class="glass exp-card">
+    <div class="role">Data Engineer</div>
+    <div class="company">Amdocs Development Center India Pvt Ltd · Pune, India</div>
+    <div class="date">Jul 2022 – Dec 2023</div>
+    <ul>
+      <li>Designed ETL pipelines processing 50K+ daily records using PySpark and SQL. Reduced ingestion latency and automated 95% of manual workflows with 99.9% data accuracy</li>
+      <li>Engineered real-time Kafka Streams infrastructure for network data — processing configuration changes in minutes instead of hours, enabling 24/7 monitoring</li>
+      <li>Built ML-powered data quality framework with automated profiling and anomaly detection. Prevented 40% of critical production failures</li>
+      <li>Optimized PySpark and SQL workloads through intelligent partitioning and caching — reducing batch runtimes and lowering Azure cloud costs by 18%</li>
+      <li>Integrated data pipelines into Jenkins-based CI/CD workflows with proper versioning and automated deployment across dev, QA, and production</li>
+      <li>Developed Power BI dashboards for network metrics and KPIs enabling cross-functional data-driven decisions</li>
+    </ul>
+  </div>
+
+  <div class="glass exp-card">
+    <div class="role">Associate Data Engineer</div>
+    <div class="company">Amdocs Development Center India Pvt Ltd · Pune, India</div>
+    <div class="date">Feb 2021 – Jul 2022</div>
+    <ul>
+      <li>Developed production ETL pipelines for service delivery workflows processing 1M+ monthly records with 99.9% accuracy — foundational infrastructure for enterprise provisioning</li>
+      <li>Architected dimensional data models using star schema design for faster business intelligence insights</li>
+      <li>Built automated data validation frameworks across inventory, provisioning, network, and configuration domains — eliminating 70% of manual verification efforts</li>
+      <li>Collaborated with DevOps on deployment validation and end-to-end testing, reducing post-deployment incidents by 40%</li>
+    </ul>
+  </div>
+</section>`,
+
 "/skills": `
 <section>
-  <h2 class="section-title">Skills & Stack</h2>
-  <p class="section-sub">End-to-end data stack: platform, pipelines, modeling, and visualization.</p>
+  <h2 class="section-title">Skills & Tech Stack</h2>
+  <p class="section-sub">End-to-end data stack covering platform, pipelines, modeling, AI, and visualization.</p>
   <div class="skills-grid">
     <div class="glass skill-card">
-      <div class="icon">☁️</div>
-      <h3>Cloud & Infrastructure</h3>
+      <div class="icon">💻</div>
+      <h3>Programming & Data Processing</h3>
       <div class="skill-tags">
-        <span class="skill-tag">AWS</span><span class="skill-tag">Azure</span><span class="skill-tag">Terraform</span>
-        <span class="skill-tag">Docker</span><span class="skill-tag">Kubernetes</span>
+        <span class="skill-tag">Python</span><span class="skill-tag">SQL</span><span class="skill-tag">PySpark</span>
+        <span class="skill-tag">Java</span><span class="skill-tag">R</span><span class="skill-tag">Pandas</span><span class="skill-tag">NumPy</span>
+      </div>
+    </div>
+    <div class="glass skill-card">
+      <div class="icon">☁️</div>
+      <h3>Cloud & Data Platforms</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">AWS</span><span class="skill-tag">Azure</span><span class="skill-tag">Snowflake</span>
+        <span class="skill-tag">Databricks</span><span class="skill-tag">Delta Lake</span>
       </div>
     </div>
     <div class="glass skill-card">
       <div class="icon">⚙️</div>
-      <h3>Data Processing</h3>
+      <h3>Data Engineering & Modeling</h3>
       <div class="skill-tags">
-        <span class="skill-tag">Spark</span><span class="skill-tag">Databricks</span><span class="skill-tag">Kafka</span>
-        <span class="skill-tag">Airflow</span><span class="skill-tag">Delta Lake</span>
+        <span class="skill-tag">ETL/ELT</span><span class="skill-tag">Star Schema</span><span class="skill-tag">SCD</span>
+        <span class="skill-tag">CDC</span><span class="skill-tag">Data Quality</span><span class="skill-tag">Data Governance</span>
+        <span class="skill-tag">Medallion Architecture</span>
+      </div>
+    </div>
+    <div class="glass skill-card">
+      <div class="icon">🔥</div>
+      <h3>Big Data Technologies</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Apache Spark</span><span class="skill-tag">Kafka</span><span class="skill-tag">Kafka Streams</span>
+        <span class="skill-tag">Delta Live Tables</span>
       </div>
     </div>
     <div class="glass skill-card">
       <div class="icon">🗄️</div>
-      <h3>Warehousing & DBs</h3>
+      <h3>Databases</h3>
       <div class="skill-tags">
-        <span class="skill-tag">Snowflake</span><span class="skill-tag">PostgreSQL</span><span class="skill-tag">MySQL</span>
-        <span class="skill-tag">MongoDB</span><span class="skill-tag">DynamoDB</span>
-      </div>
-    </div>
-    <div class="glass skill-card">
-      <div class="icon">🤖</div>
-      <h3>AI / LLM</h3>
-      <div class="skill-tags">
-        <span class="skill-tag">RAG</span><span class="skill-tag">LangChain</span><span class="skill-tag">HuggingFace</span>
-        <span class="skill-tag">Embeddings</span><span class="skill-tag">Pinecone</span>
+        <span class="skill-tag">PostgreSQL</span><span class="skill-tag">MySQL</span><span class="skill-tag">MongoDB</span>
+        <span class="skill-tag">DynamoDB</span>
       </div>
     </div>
     <div class="glass skill-card">
@@ -293,14 +335,34 @@ const pages={
       <div class="skill-tags">
         <span class="skill-tag">Power BI</span><span class="skill-tag">Tableau</span><span class="skill-tag">DAX</span>
         <span class="skill-tag">Streamlit</span><span class="skill-tag">Plotly</span>
+        <span class="skill-tag">Matplotlib</span><span class="skill-tag">Seaborn</span>
       </div>
     </div>
     <div class="glass skill-card">
-      <div class="icon">💻</div>
-      <h3>Programming</h3>
+      <div class="icon">🔄</div>
+      <h3>Orchestration, DevOps & Backend</h3>
       <div class="skill-tags">
-        <span class="skill-tag">Python</span><span class="skill-tag">SQL</span><span class="skill-tag">PySpark</span>
-        <span class="skill-tag">Java</span><span class="skill-tag">R</span>
+        <span class="skill-tag">Apache Airflow</span><span class="skill-tag">dbt</span><span class="skill-tag">Docker</span>
+        <span class="skill-tag">Kubernetes</span><span class="skill-tag">Terraform</span><span class="skill-tag">Jenkins</span>
+        <span class="skill-tag">CI/CD</span><span class="skill-tag">FastAPI</span><span class="skill-tag">Flask</span><span class="skill-tag">MLflow</span>
+      </div>
+    </div>
+    <div class="glass skill-card">
+      <div class="icon">🤖</div>
+      <h3>Machine Learning & GenAI</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Scikit-learn</span><span class="skill-tag">XGBoost</span><span class="skill-tag">TensorFlow</span>
+        <span class="skill-tag">PyTorch</span><span class="skill-tag">HuggingFace</span>
+        <span class="skill-tag">LangChain</span><span class="skill-tag">RAG</span>
+        <span class="skill-tag">Vector Embeddings</span><span class="skill-tag">Pinecone</span><span class="skill-tag">FAISS</span>
+      </div>
+    </div>
+    <div class="glass skill-card">
+      <div class="icon">🌐</div>
+      <h3>APIs & Data Processing</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">FastAPI</span><span class="skill-tag">Flask</span><span class="skill-tag">Pydantic</span>
+        <span class="skill-tag">Sentence Transformers</span><span class="skill-tag">Alteryx</span>
       </div>
     </div>
   </div>
@@ -311,49 +373,98 @@ const pages={
   <h2 class="section-title">Projects</h2>
   <p class="section-sub">Selected work — click through to GitHub.</p>
   <div class="projects-grid">
+
     <div class="glass proj-card">
-      <h3>🤖 RAG Document Intelligence</h3>
-      <p>Ingestion + chunking + embeddings + semantic retrieval with LLM-powered responses.</p>
-      <div class="skill-tags" style="margin-bottom:14px">
+      <h3>🤖 RAG Document Intelligence System</h3>
+      <p>End-to-end RAG pipeline with multi-source document ingestion, 384-dim embeddings, and Pinecone vector indexing achieving &lt;50ms search latency. Integrates 5 HuggingFace LLMs (Mistral, Zephyr, Phi) with a FastAPI backend and Streamlit frontend for context-aware Q&A.</p>
+      <div class="skill-tags" style="margin-bottom:12px">
         <span class="skill-tag">FastAPI</span><span class="skill-tag">Streamlit</span><span class="skill-tag">Pinecone</span>
-        <span class="skill-tag">LangChain</span><span class="skill-tag">HuggingFace</span>
+        <span class="skill-tag">LangChain</span><span class="skill-tag">HuggingFace</span><span class="skill-tag">Databricks</span>
       </div>
       <a class="proj-link" href="https://github.com/Amrutanaik98/RAG-Document-Intelligence-System" target="_blank">View on GitHub →</a>
     </div>
+
     <div class="glass proj-card">
-      <h3>✈️ Flight Data Analytics Pipeline</h3>
-      <p>Streaming + batch processing with orchestration and ML-based delay prediction.</p>
-      <div class="skill-tags" style="margin-bottom:14px">
+      <h3>✈️ Flight Data Real-Time Analytics</h3>
+      <p>Real-time pipeline with Lambda, SQS, Glue, and DynamoDB orchestrated via Airflow on EC2. Built RandomForest model for delay prediction with Streamlit dashboards for KPIs, trends, and anomaly detection.</p>
+      <div class="skill-tags" style="margin-bottom:12px">
         <span class="skill-tag">AWS</span><span class="skill-tag">Airflow</span><span class="skill-tag">PySpark</span>
-        <span class="skill-tag">Terraform</span><span class="skill-tag">XGBoost</span>
+        <span class="skill-tag">Terraform</span><span class="skill-tag">XGBoost</span><span class="skill-tag">Streamlit</span>
       </div>
       <a class="proj-link" href="https://github.com/Amrutanaik98/Flight_Data_Analysis" target="_blank">View on GitHub →</a>
     </div>
+
     <div class="glass proj-card">
       <h3>🍽️ Food Inspection Analytics</h3>
-      <p>Medallion ELT pipeline + BI reporting for inspection trends across cities.</p>
-      <div class="skill-tags" style="margin-bottom:14px">
+      <p>Cleaned 5M+ inspection records using Alteryx and Databricks. Built medallion ELT pipeline (Bronze/Silver/Gold) in Snowflake with star schema models and Power BI dashboards for 200+ food establishments.</p>
+      <div class="skill-tags" style="margin-bottom:12px">
         <span class="skill-tag">ADF</span><span class="skill-tag">Databricks</span><span class="skill-tag">Snowflake</span>
-        <span class="skill-tag">Power BI</span>
+        <span class="skill-tag">Power BI</span><span class="skill-tag">Alteryx</span>
       </div>
-      <a class="proj-link" href="https://github.com/Amrutanaik98/Food_Inspection-Dallas_Chicago_BusinessIntelligence" target="_blank">View on GitHub →</a>
+      <div class="proj-impact">📊 100K+ records processed · 95% accuracy</div>
+      <a class="proj-link" href="https://github.com/Amrutanaik98/Food_Inspection-Dallas_Chicago_BusinessIntelligence" target="_blank" style="margin-top:10px;display:inline-flex">View on GitHub →</a>
     </div>
+
     <div class="glass proj-card">
       <h3>🎬 IMDb Business Intelligence</h3>
-      <p>Star schema design + DAX measures + interactive dashboards for movie analytics.</p>
-      <div class="skill-tags" style="margin-bottom:14px">
+      <p>Comprehensive BI dashboards with Snowflake star schema, complex DAX calculations, genre performance metrics, actor/director rankings, and sentiment analysis on reviews.</p>
+      <div class="skill-tags" style="margin-bottom:12px">
         <span class="skill-tag">SQL</span><span class="skill-tag">Power BI</span><span class="skill-tag">Azure</span>
-        <span class="skill-tag">Snowflake</span>
+        <span class="skill-tag">Snowflake</span><span class="skill-tag">DAX</span><span class="skill-tag">Alteryx</span>
       </div>
-      <a class="proj-link" href="https://github.com/Amrutanaik98/IMDb_Business_Intelligence" target="_blank">View on GitHub →</a>
+      <div class="proj-impact">📊 50K+ movies tracked · 10K+ professionals analyzed</div>
+      <a class="proj-link" href="https://github.com/Amrutanaik98/IMDb_Business_Intelligence" target="_blank" style="margin-top:10px;display:inline-flex">View on GitHub →</a>
     </div>
+
+    <div class="glass proj-card">
+      <h3>🗽 NYPD Crime Data Analysis</h3>
+      <p>Large-scale crime data pipeline for 5M+ records with borough-level distribution analysis, temporal trend analysis, geospatial visualizations, and anomaly detection for unusual crime patterns.</p>
+      <div class="skill-tags" style="margin-bottom:12px">
+        <span class="skill-tag">ADF</span><span class="skill-tag">Snowflake</span><span class="skill-tag">Alteryx</span>
+        <span class="skill-tag">Power BI</span><span class="skill-tag">Star Schema</span>
+      </div>
+      <div class="proj-impact">📊 5 NYC boroughs analyzed · 70% query time reduction</div>
+      <a class="proj-link" href="https://github.com/Amrutanaik98/NYPD_Data_Analysis" target="_blank" style="margin-top:10px;display:inline-flex">View on GitHub →</a>
+    </div>
+
+    <div class="glass proj-card">
+      <h3>🌾 Climate Impact on Crop Yields</h3>
+      <p>Regression analysis on 60 years of climate-agriculture data with correlation studies, time-series forecasting, statistical hypothesis testing, and multivariate analysis using Scikit-learn.</p>
+      <div class="skill-tags" style="margin-bottom:12px">
+        <span class="skill-tag">Python</span><span class="skill-tag">Scikit-learn</span><span class="skill-tag">Pandas</span>
+        <span class="skill-tag">Matplotlib</span><span class="skill-tag">Seaborn</span>
+      </div>
+      <div class="proj-impact">📊 Predictive models with R² > 0.85</div>
+      <a class="proj-link" href="https://github.com/Amrutanaik98/Climate_Impact_Analysis" target="_blank" style="margin-top:10px;display:inline-flex">View on GitHub →</a>
+    </div>
+
+    <div class="glass proj-card">
+      <h3>🏪 Store Management System</h3>
+      <p>Normalized OLTP database with 15+ tables, inventory management with automatic stock alerts, role-based access control, audit trails, and PL/SQL triggers for business logic.</p>
+      <div class="skill-tags" style="margin-bottom:12px">
+        <span class="skill-tag">Oracle SQL</span><span class="skill-tag">PL/SQL</span><span class="skill-tag">Triggers</span>
+        <span class="skill-tag">Views</span>
+      </div>
+      <a class="proj-link" href="https://github.com/Amrutanaik98/Store_Management_System" target="_blank">View on GitHub →</a>
+    </div>
+
+    <div class="glass proj-card">
+      <h3>🎓 NEU Grade Calculator</h3>
+      <p>Dynamic GPA/CGPA calculation app with JavaFX GUI, MVC design pattern, multiple grading scales, transcript visualization, and real-time cumulative GPA display.</p>
+      <div class="skill-tags" style="margin-bottom:12px">
+        <span class="skill-tag">Java</span><span class="skill-tag">JavaFX</span><span class="skill-tag">OOP</span>
+        <span class="skill-tag">MVC</span>
+      </div>
+      <a class="proj-link" href="https://github.com/Amrutanaik98/NEUGradeCalculator" target="_blank">View on GitHub →</a>
+    </div>
+
   </div>
 </section>`,
 
 "/contact": `
 <section>
   <h2 class="section-title">Let's Connect</h2>
-  <p class="section-sub">Open to Data Engineering & Analytics Engineering roles.</p>
+  <p class="section-sub">I'd love to hear from you — feel free to reach out.</p>
   <div class="contact-cards">
     <a class="glass contact-card" href="mailto:amrutanaik1198@gmail.com">
       <div class="c-icon">📧</div>
@@ -370,6 +481,9 @@ const pages={
       <h3>GitHub</h3>
       <p>Projects & code</p>
     </a>
+  </div>
+  <div style="text-align:center;margin-top:36px;color:var(--muted);font-weight:600">
+    <p>📍 Boston, MA · (857)-506-5190</p>
   </div>
 </section>`
 };
