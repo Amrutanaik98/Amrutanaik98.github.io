@@ -1,409 +1,393 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Amruta Naik | Data Engineer</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Amruta Naik | Data Engineer</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0f;--surface:#12121a;--surface2:#1a1a26;--surface3:#22222f;
+  --text:#e8e8f0;--muted:#8888a0;--accent:#6c5ce7;--accent2:#a78bfa;
+  --cyan:#22d3ee;--green:#34d399;--pink:#f472b6;
+  --glow:0 0 40px rgba(108,92,231,.3);
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes pulse{0%,100%{opacity:.6}50%{opacity:1}}
+@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes orbit{from{transform:rotate(0deg) translateX(180px) rotate(0deg)}to{transform:rotate(360deg) translateX(180px) rotate(-360deg)}}
 
-  <style>
-    /* ----- BASIC THEME (keep yours or merge) ----- */
-    :root{
-      --bg:#ffffff; --bg2:#f6f8fc; --text:#0f172a; --muted:#475569;
-      --brand:#0A66C2; --brand2:#1a73e8; --border:rgba(15,23,42,.12);
-      --card: rgba(255,255,255,.8); --shadow: 0 10px 30px rgba(2,6,23,.10);
-      --radius: 20px; --container: 1120px;
-    }
-    body{
-      margin:0;
-      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial;
-      background:
-        radial-gradient(1200px 700px at 20% -10%, rgba(10,102,194,.18), transparent 60%),
-        radial-gradient(900px 600px at 80% 10%, rgba(34,197,94,.12), transparent 60%),
-        var(--bg);
-      color: var(--text);
-    }
-    .container{ max-width: var(--container); margin: 0 auto; padding: 0 20px; }
+body{font-family:'Inter',ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+a{color:inherit;text-decoration:none}
 
-    /* NAV */
-    nav{
-      position: sticky; top:0; z-index:100;
-      backdrop-filter: blur(14px);
-      background: rgba(255,255,255,.65);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-inner{
-      display:flex; justify-content:space-between; align-items:center;
-      padding: 14px 0;
-    }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      text-decoration:none; color: var(--text); font-weight:900;
-    }
-    .brand-badge{
-      width:34px; height:34px; border-radius:12px;
-      background: linear-gradient(135deg, var(--brand), var(--brand2));
-      color:white; display:grid; place-items:center; font-weight:900;
-      box-shadow: 0 10px 20px rgba(10,102,194,.25);
-    }
-    .nav-links{ list-style:none; display:flex; gap: 10px; margin:0; padding:0; }
-    .nav-links a{
-      text-decoration:none;
-      color: var(--muted);
-      font-weight:800;
-      padding: 10px 12px;
-      border-radius: 14px;
-      transition: .2s ease;
-    }
-    .nav-links a:hover{ background: rgba(10,102,194,.08); color: var(--text); }
-    .nav-links a.active{
-      background: rgba(10,102,194,.12);
-      color: var(--brand);
-      border: 1px solid rgba(10,102,194,.20);
-    }
+/* Animated background */
+.bg-grid{position:fixed;inset:0;z-index:0;opacity:.04;
+  background-image:linear-gradient(rgba(255,255,255,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.1) 1px,transparent 1px);
+  background-size:60px 60px}
+.bg-orb{position:fixed;border-radius:50%;filter:blur(100px);z-index:0;pointer-events:none}
+.bg-orb.o1{width:600px;height:600px;top:-200px;left:-100px;background:rgba(108,92,231,.15);animation:float 8s ease-in-out infinite}
+.bg-orb.o2{width:500px;height:500px;bottom:-150px;right:-100px;background:rgba(34,211,238,.1);animation:float 10s ease-in-out infinite 2s}
+.bg-orb.o3{width:400px;height:400px;top:40%;left:50%;background:rgba(244,114,182,.08);animation:float 12s ease-in-out infinite 4s}
 
-    /* PAGE LAYOUT */
-    main{ padding: 44px 0 60px; min-height: calc(100vh - 70px); }
-    .card{
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      box-shadow: var(--shadow);
-      padding: 26px;
-      backdrop-filter: blur(12px);
-    }
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 0;
+  background:rgba(10,10,15,.7);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.05);transition:.3s}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:1.1rem}
+.logo-icon{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-weight:900;font-size:.85rem;color:#fff;
+  background:linear-gradient(135deg,var(--accent),var(--cyan));box-shadow:0 4px 20px rgba(108,92,231,.4)}
+.nav-links{display:flex;gap:4px;list-style:none}
+.nav-links a{padding:8px 16px;border-radius:10px;font-weight:600;font-size:.9rem;color:var(--muted);transition:.2s;position:relative}
+.nav-links a:hover{color:var(--text);background:rgba(255,255,255,.05)}
+.nav-links a.active{color:var(--accent2);background:rgba(108,92,231,.12)}
 
-    h1{ font-size: clamp(2.2rem, 4vw, 3.2rem); margin: 0 0 10px; letter-spacing: -.6px; }
-    h2{ font-size: 1.8rem; margin: 0 0 10px; letter-spacing: -.3px; }
-    p{ color: var(--muted); line-height: 1.75; font-weight: 600; margin: 0 0 12px; }
+/* Sections */
+.page{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:100px 24px 60px;min-height:100vh}
+section{animation:fadeUp .6s ease both}
 
-    .hero{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 18px;
-      align-items: start;
-    }
-    .pill{
-      display:inline-flex; align-items:center; gap:10px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.55);
-      color: var(--muted);
-      font-weight: 800;
-      margin-bottom: 14px;
-    }
-    .pill-dot{ width:10px; height:10px; border-radius:999px; background:#22c55e; box-shadow:0 0 0 6px rgba(34,197,94,.14); }
+/* Hero */
+.hero{display:grid;grid-template-columns:1.3fr .7fr;gap:40px;align-items:center;min-height:80vh}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border-radius:99px;
+  background:rgba(108,92,231,.1);border:1px solid rgba(108,92,231,.25);font-size:.85rem;font-weight:600;color:var(--accent2);margin-bottom:20px}
+.hero-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green);animation:pulse 2s infinite}
+.hero h1{font-size:clamp(2.5rem,5vw,4rem);font-weight:900;letter-spacing:-1.5px;line-height:1.1;margin-bottom:16px;
+  background:linear-gradient(135deg,#fff 30%,var(--accent2) 70%,var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 200%;animation:gradientShift 6s ease infinite}
+.hero p{color:var(--muted);font-size:1.1rem;max-width:520px;margin-bottom:28px;font-weight:500}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:14px;font-weight:700;font-size:.95rem;transition:.25s;border:none;cursor:pointer}
+.btn-primary{background:linear-gradient(135deg,var(--accent),#8b5cf6);color:#fff;box-shadow:0 4px 24px rgba(108,92,231,.4)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(108,92,231,.5)}
+.btn-outline{background:transparent;border:1px solid rgba(255,255,255,.12);color:var(--text)}
+.btn-outline:hover{border-color:rgba(108,92,231,.5);background:rgba(108,92,231,.08);transform:translateY(-2px)}
 
-    .btn-row{ display:flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
-    .btn{
-      display:inline-flex; align-items:center; gap: 10px;
-      padding: 12px 16px;
-      border-radius: 16px;
-      font-weight: 900;
-      text-decoration:none;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.65);
-      color: var(--text);
-      transition:.15s ease;
-    }
-    .btn.primary{
-      background: linear-gradient(135deg, var(--brand), var(--brand2));
-      color:white; border: none;
-    }
-    .btn:hover{ transform: translateY(-2px); box-shadow: var(--shadow); }
+/* Stats ring */
+.stats-visual{position:relative;display:flex;justify-content:center;align-items:center;height:100%}
+.orbit-ring{width:360px;height:360px;border-radius:50%;border:1px dashed rgba(255,255,255,.06);position:relative;animation:float 6s ease-in-out infinite}
+.orbit-item{position:absolute;animation:orbit 20s linear infinite}
+.orbit-item:nth-child(2){animation-delay:-5s}
+.orbit-item:nth-child(3){animation-delay:-10s}
+.orbit-item:nth-child(4){animation-delay:-15s}
+.orbit-item .ob{padding:12px 18px;border-radius:14px;background:var(--surface2);border:1px solid rgba(255,255,255,.08);
+  font-weight:800;font-size:.85rem;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.orbit-item .ob strong{display:block;font-size:1.3rem;
+  background:linear-gradient(135deg,var(--accent2),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.center-stat{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;
+  padding:28px;border-radius:50%;width:130px;height:130px;display:grid;place-items:center;
+  background:radial-gradient(circle,rgba(108,92,231,.15),transparent);border:1px solid rgba(108,92,231,.2)}
+.center-stat strong{font-size:2rem;display:block;
+  background:linear-gradient(135deg,var(--accent2),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.center-stat span{font-size:.75rem;color:var(--muted);font-weight:600}
 
-    .grid2{ display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .grid3{ display:grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+/* Cards */
+.section-title{font-size:2rem;font-weight:900;letter-spacing:-.5px;margin-bottom:8px}
+.section-sub{color:var(--muted);margin-bottom:32px;font-weight:500}
+.glass{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:24px;
+  backdrop-filter:blur(10px);transition:.3s}
+.glass:hover{border-color:rgba(108,92,231,.25);transform:translateY(-4px);box-shadow:var(--glow)}
 
-    .mini{
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.55);
-      padding: 16px;
-    }
-    .mini strong{ display:block; font-size: 1.3rem; letter-spacing: -.2px; }
-    .mini span{ color: var(--muted); font-weight: 800; }
+/* Skills */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.skill-card{text-align:left}
+.skill-card .icon{font-size:1.6rem;margin-bottom:10px}
+.skill-card h3{font-size:1rem;font-weight:800;margin-bottom:12px}
+.skill-tags{display:flex;flex-wrap:wrap;gap:6px}
+.skill-tag{padding:5px 12px;border-radius:8px;font-size:.8rem;font-weight:600;
+  background:rgba(108,92,231,.08);border:1px solid rgba(108,92,231,.15);color:var(--accent2)}
 
-    .tag-wrap{ display:flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-    .tag{
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.55);
-      color: var(--muted);
-      font-weight: 850;
-      font-size: .9rem;
-    }
+/* Projects */
+.projects-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.proj-card{position:relative;overflow:hidden}
+.proj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--accent),var(--cyan));opacity:0;transition:.3s}
+.proj-card:hover::before{opacity:1}
+.proj-card h3{font-size:1.05rem;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.proj-card p{color:var(--muted);font-size:.9rem;margin-bottom:14px;font-weight:500}
+.proj-link{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:.9rem;color:var(--accent2);transition:.2s}
+.proj-link:hover{color:var(--cyan);gap:10px}
 
-    .project{
-      border-radius: 22px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.6);
-      padding: 18px;
-      transition: .15s ease;
-    }
-    .project:hover{ transform: translateY(-3px); box-shadow: var(--shadow); }
-    .project a{ font-weight: 900; color: var(--brand); text-decoration:none; }
-    .project a:hover{ color: var(--brand2); }
+/* About */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+.about-text{font-size:1.05rem;color:var(--muted);font-weight:500}
+.highlight-box{padding:20px;border-radius:16px;background:linear-gradient(135deg,rgba(108,92,231,.08),rgba(34,211,238,.05));
+  border:1px solid rgba(108,92,231,.15)}
+.highlight-box h4{font-weight:800;margin-bottom:6px;color:var(--text)}
+.highlight-box p{color:var(--muted);font-size:.9rem;font-weight:500}
 
-    footer{
-      border-top: 1px solid var(--border);
-      padding: 24px 0;
-      text-align:center;
-      color: var(--muted);
-      background: rgba(255,255,255,.35);
-      backdrop-filter: blur(12px);
-    }
+/* Contact */
+.contact-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.contact-card{text-align:center;padding:32px 24px}
+.contact-card .c-icon{font-size:2rem;margin-bottom:12px}
+.contact-card h3{font-weight:800;margin-bottom:6px}
+.contact-card p{color:var(--muted);font-size:.9rem;font-weight:500}
 
-    @media (max-width: 980px){
-      .hero{ grid-template-columns: 1fr; }
-      .grid2{ grid-template-columns: 1fr; }
-      .grid3{ grid-template-columns: 1fr; }
-      .nav-links{ gap: 6px; }
-      .nav-links a{ padding: 9px 10px; font-size: .95rem; }
-    }
-  </style>
+/* Timeline */
+.timeline{position:relative;padding-left:28px;margin-top:24px}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--accent),var(--cyan),transparent)}
+.tl-item{position:relative;margin-bottom:28px}
+.tl-item::before{content:'';position:absolute;left:-24px;top:6px;width:12px;height:12px;border-radius:50%;
+  background:var(--accent);box-shadow:0 0 16px rgba(108,92,231,.5)}
+.tl-item h4{font-weight:800;font-size:1rem}
+.tl-item .tl-sub{color:var(--accent2);font-size:.85rem;font-weight:600;margin-bottom:4px}
+.tl-item p{color:var(--muted);font-size:.9rem;font-weight:500}
+
+/* Footer */
+footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.05);padding:32px 24px;text-align:center;color:var(--muted);font-size:.9rem;font-weight:600}
+footer strong{color:var(--text)}
+
+/* Responsive */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;text-align:center}
+  .hero p{margin:0 auto 28px}
+  .hero-btns{justify-content:center}
+  .stats-visual{display:none}
+  .skills-grid,.contact-cards{grid-template-columns:1fr}
+  .projects-grid,.about-grid{grid-template-columns:1fr}
+  .nav-links a{padding:6px 10px;font-size:.8rem}
+}
+</style>
 </head>
-
 <body>
-  <nav>
-    <div class="container">
-      <div class="nav-inner">
-        <a class="brand" href="#/">
-          <span class="brand-badge">AN</span>
-          <span>Amruta Naik</span>
-        </a>
 
-        <ul class="nav-links" id="navLinks">
-          <li><a href="#/" data-route="/">Home</a></li>
-          <li><a href="#/about" data-route="/about">About</a></li>
-          <li><a href="#/skills" data-route="/skills">Skills</a></li>
-          <li><a href="#/projects" data-route="/projects">Projects</a></li>
-          <li><a href="#/contact" data-route="/contact">Contact</a></li>
-        </ul>
+<div class="bg-grid"></div>
+<div class="bg-orb o1"></div>
+<div class="bg-orb o2"></div>
+<div class="bg-orb o3"></div>
+
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="#/">
+      <span class="logo-icon">AN</span>
+      <span>Amruta Naik</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#/" data-route="/">Home</a></li>
+      <li><a href="#/about" data-route="/about">About</a></li>
+      <li><a href="#/skills" data-route="/skills">Skills</a></li>
+      <li><a href="#/projects" data-route="/projects">Projects</a></li>
+      <li><a href="#/contact" data-route="/contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page">
+  <div id="app"></div>
+</div>
+
+<footer>
+  <strong>© 2026 Amruta Naik</strong><br/>
+  Data Engineering · Analytics Engineering · AI-Ready Platforms
+</footer>
+
+<script>
+const pages={
+"/": `
+<section>
+  <div class="hero">
+    <div>
+      <div class="hero-badge"><span class="hero-dot"></span> Open to Data Engineering · Analytics · BI</div>
+      <h1>Building Data Systems That Scale</h1>
+      <p>Data Engineer with 3+ years of experience crafting reliable pipelines, analytics layers, and cloud-native platforms — now expanding into LLM & RAG systems.</p>
+      <div class="hero-btns">
+        <a class="btn btn-primary" href="#/projects">View Projects →</a>
+        <a class="btn btn-outline" href="#/contact">Get in Touch</a>
+        <a class="btn btn-outline" href="https://www.linkedin.com/in/amruta-naik-6a9091183" target="_blank">LinkedIn ↗</a>
+        <a class="btn btn-outline" href="https://github.com/Amrutanaik98" target="_blank">GitHub ↗</a>
       </div>
     </div>
-  </nav>
-
-  <main>
-    <div class="container">
-      <!-- Pages render here -->
-      <div id="app"></div>
+    <div class="stats-visual">
+      <div class="orbit-ring">
+        <div class="orbit-item"><div class="ob"><strong>3+</strong>Years Exp</div></div>
+        <div class="orbit-item"><div class="ob"><strong>8+</strong>Projects</div></div>
+        <div class="orbit-item"><div class="ob"><strong>20+</strong>Tools</div></div>
+        <div class="orbit-item"><div class="ob"><strong>AWS</strong>Azure</div></div>
+      </div>
+      <div class="center-stat"><strong>DE</strong><span>Data Engineer</span></div>
     </div>
-  </main>
+  </div>
+</section>`,
 
-  <footer>
-    <div class="container">
-      <div style="font-weight:900;">© 2026 Amruta Naik</div>
-      <div style="margin-top:6px;">Data Engineering • Analytics Engineering • AI-ready platforms</div>
+"/about": `
+<section>
+  <h2 class="section-title">About Me</h2>
+  <p class="section-sub">From messy data to trustworthy systems.</p>
+  <p class="about-text" style="margin-bottom:24px">
+    MS in Information Systems from Northeastern University with 3 years at Amdocs building scalable data solutions.
+    I enjoy taking messy data problems and turning them into trustworthy, governed, performance-ready systems.
+  </p>
+  <div class="about-grid">
+    <div class="highlight-box">
+      <h4>🎓 Education</h4>
+      <p>MS in Information Systems — Northeastern University, Boston</p>
     </div>
-  </footer>
+    <div class="highlight-box">
+      <h4>💼 Experience</h4>
+      <p>3 years at Amdocs — scalable data platforms & enterprise pipelines</p>
+    </div>
+    <div class="highlight-box">
+      <h4>🎯 Focus Areas</h4>
+      <p>ELT pipelines, Data modeling, DQ & observability, BI enablement</p>
+    </div>
+    <div class="highlight-box">
+      <h4>🚀 Expanding Into</h4>
+      <p>GenAI integrations — RAG, LLMs, vector search, embeddings</p>
+    </div>
+  </div>
+  <div style="margin-top:32px">
+    <h3 class="section-title" style="font-size:1.4rem">Journey</h3>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-sub">2024 – Present</div>
+        <h4>MS in Information Systems — Northeastern</h4>
+        <p>Deep-diving into data engineering, analytics, and AI/ML systems.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-sub">2021 – 2024</div>
+        <h4>Software Engineer — Amdocs</h4>
+        <p>Built scalable ETL/ELT pipelines, data warehouse solutions, and BI dashboards.</p>
+      </div>
+    </div>
+  </div>
+</section>`,
 
-  <script>
-    // -------------------- PAGE TEMPLATES --------------------
-    const pages = {
-      "/": `
-        <section class="card">
-          <div class="hero">
-            <div>
-              <div class="pill"><span class="pill-dot"></span>Open to Data Engineering • Analytics Engineering • BI</div>
-              <h1>Amruta Chandrakant Naik</h1>
-              <p>
-                Data Engineer focused on building reliable pipelines, analytics layers, and cloud-native platforms
-                using AWS/Azure, Databricks/Spark, and Snowflake — now expanding into LLM + RAG systems.
-              </p>
-              <div class="btn-row">
-                <a class="btn primary" href="#/projects">View Projects →</a>
-                <a class="btn" href="#/contact">Get in Touch</a>
-                <a class="btn" href="https://www.linkedin.com/in/amruta-naik-6a9091183" target="_blank" rel="noreferrer">LinkedIn</a>
-                <a class="btn" href="https://github.com/Amrutanaik98" target="_blank" rel="noreferrer">GitHub</a>
-              </div>
-            </div>
+"/skills": `
+<section>
+  <h2 class="section-title">Skills & Stack</h2>
+  <p class="section-sub">End-to-end data stack: platform, pipelines, modeling, and visualization.</p>
+  <div class="skills-grid">
+    <div class="glass skill-card">
+      <div class="icon">☁️</div>
+      <h3>Cloud & Infrastructure</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">AWS</span><span class="skill-tag">Azure</span><span class="skill-tag">Terraform</span>
+        <span class="skill-tag">Docker</span><span class="skill-tag">Kubernetes</span>
+      </div>
+    </div>
+    <div class="glass skill-card">
+      <div class="icon">⚙️</div>
+      <h3>Data Processing</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Spark</span><span class="skill-tag">Databricks</span><span class="skill-tag">Kafka</span>
+        <span class="skill-tag">Airflow</span><span class="skill-tag">Delta Lake</span>
+      </div>
+    </div>
+    <div class="glass skill-card">
+      <div class="icon">🗄️</div>
+      <h3>Warehousing & DBs</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Snowflake</span><span class="skill-tag">PostgreSQL</span><span class="skill-tag">MySQL</span>
+        <span class="skill-tag">MongoDB</span><span class="skill-tag">DynamoDB</span>
+      </div>
+    </div>
+    <div class="glass skill-card">
+      <div class="icon">🤖</div>
+      <h3>AI / LLM</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">RAG</span><span class="skill-tag">LangChain</span><span class="skill-tag">HuggingFace</span>
+        <span class="skill-tag">Embeddings</span><span class="skill-tag">Pinecone</span>
+      </div>
+    </div>
+    <div class="glass skill-card">
+      <div class="icon">📊</div>
+      <h3>Analytics & BI</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Power BI</span><span class="skill-tag">Tableau</span><span class="skill-tag">DAX</span>
+        <span class="skill-tag">Streamlit</span><span class="skill-tag">Plotly</span>
+      </div>
+    </div>
+    <div class="glass skill-card">
+      <div class="icon">💻</div>
+      <h3>Programming</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span><span class="skill-tag">SQL</span><span class="skill-tag">PySpark</span>
+        <span class="skill-tag">Java</span><span class="skill-tag">R</span>
+      </div>
+    </div>
+  </div>
+</section>`,
 
-            <div class="grid2">
-              <div class="mini"><strong>3+</strong><span>Years experience</span></div>
-              <div class="mini"><strong>8+</strong><span>Major projects</span></div>
-              <div class="mini"><strong>20+</strong><span>Technologies</span></div>
-              <div class="mini"><strong>100%</strong><span>Ownership mindset</span></div>
-            </div>
-          </div>
-        </section>
-      `,
+"/projects": `
+<section>
+  <h2 class="section-title">Projects</h2>
+  <p class="section-sub">Selected work — click through to GitHub.</p>
+  <div class="projects-grid">
+    <div class="glass proj-card">
+      <h3>🤖 RAG Document Intelligence</h3>
+      <p>Ingestion + chunking + embeddings + semantic retrieval with LLM-powered responses.</p>
+      <div class="skill-tags" style="margin-bottom:14px">
+        <span class="skill-tag">FastAPI</span><span class="skill-tag">Streamlit</span><span class="skill-tag">Pinecone</span>
+        <span class="skill-tag">LangChain</span><span class="skill-tag">HuggingFace</span>
+      </div>
+      <a class="proj-link" href="https://github.com/Amrutanaik98/RAG-Document-Intelligence-System" target="_blank">View on GitHub →</a>
+    </div>
+    <div class="glass proj-card">
+      <h3>✈️ Flight Data Analytics Pipeline</h3>
+      <p>Streaming + batch processing with orchestration and ML-based delay prediction.</p>
+      <div class="skill-tags" style="margin-bottom:14px">
+        <span class="skill-tag">AWS</span><span class="skill-tag">Airflow</span><span class="skill-tag">PySpark</span>
+        <span class="skill-tag">Terraform</span><span class="skill-tag">XGBoost</span>
+      </div>
+      <a class="proj-link" href="https://github.com/Amrutanaik98/Flight_Data_Analysis" target="_blank">View on GitHub →</a>
+    </div>
+    <div class="glass proj-card">
+      <h3>🍽️ Food Inspection Analytics</h3>
+      <p>Medallion ELT pipeline + BI reporting for inspection trends across cities.</p>
+      <div class="skill-tags" style="margin-bottom:14px">
+        <span class="skill-tag">ADF</span><span class="skill-tag">Databricks</span><span class="skill-tag">Snowflake</span>
+        <span class="skill-tag">Power BI</span>
+      </div>
+      <a class="proj-link" href="https://github.com/Amrutanaik98/Food_Inspection-Dallas_Chicago_BusinessIntelligence" target="_blank">View on GitHub →</a>
+    </div>
+    <div class="glass proj-card">
+      <h3>🎬 IMDb Business Intelligence</h3>
+      <p>Star schema design + DAX measures + interactive dashboards for movie analytics.</p>
+      <div class="skill-tags" style="margin-bottom:14px">
+        <span class="skill-tag">SQL</span><span class="skill-tag">Power BI</span><span class="skill-tag">Azure</span>
+        <span class="skill-tag">Snowflake</span>
+      </div>
+      <a class="proj-link" href="https://github.com/Amrutanaik98/IMDb_Business_Intelligence" target="_blank">View on GitHub →</a>
+    </div>
+  </div>
+</section>`,
 
-      "/about": `
-        <section class="card">
-          <h2>About</h2>
-          <p>
-            MS in Information Systems (Northeastern University). 3 years at Amdocs building scalable data solutions.
-            I enjoy taking messy data problems and turning them into trustworthy, governed, performance-ready systems.
-          </p>
-          <p>
-            Current focus areas: ELT pipelines, data modeling, data quality, BI enablement, and GenAI integrations (RAG/LLMs).
-          </p>
-          <div class="tag-wrap">
-            <span class="tag">Medallion Architecture</span>
-            <span class="tag">SCD / CDC</span>
-            <span class="tag">DQ & Observability</span>
-            <span class="tag">Cloud (AWS/Azure)</span>
-            <span class="tag">Warehousing (Snowflake)</span>
-          </div>
-        </section>
-      `,
+"/contact": `
+<section>
+  <h2 class="section-title">Let's Connect</h2>
+  <p class="section-sub">Open to Data Engineering & Analytics Engineering roles.</p>
+  <div class="contact-cards">
+    <a class="glass contact-card" href="mailto:amrutanaik1198@gmail.com">
+      <div class="c-icon">📧</div>
+      <h3>Email</h3>
+      <p>amrutanaik1198@gmail.com</p>
+    </a>
+    <a class="glass contact-card" href="https://www.linkedin.com/in/amruta-naik-6a9091183" target="_blank">
+      <div class="c-icon">💼</div>
+      <h3>LinkedIn</h3>
+      <p>Connect with me</p>
+    </a>
+    <a class="glass contact-card" href="https://github.com/Amrutanaik98" target="_blank">
+      <div class="c-icon">💻</div>
+      <h3>GitHub</h3>
+      <p>Projects & code</p>
+    </a>
+  </div>
+</section>`
+};
 
-      "/skills": `
-        <section class="card">
-          <h2>Skills</h2>
-          <p>End-to-end data stack: platform, pipelines, modeling, and visualization.</p>
-
-          <div class="grid3" style="margin-top:16px;">
-            <div class="project">
-              <div style="font-weight:950;">☁️ Cloud & Infra</div>
-              <div class="tag-wrap">
-                <span class="tag">AWS</span><span class="tag">Azure</span><span class="tag">Terraform</span>
-                <span class="tag">Docker</span><span class="tag">Kubernetes</span>
-              </div>
-            </div>
-
-            <div class="project">
-              <div style="font-weight:950;">⚙️ Processing</div>
-              <div class="tag-wrap">
-                <span class="tag">Spark</span><span class="tag">Databricks</span><span class="tag">Kafka</span>
-                <span class="tag">Airflow</span><span class="tag">Delta Lake</span>
-              </div>
-            </div>
-
-            <div class="project">
-              <div style="font-weight:950;">🗄️ Warehousing</div>
-              <div class="tag-wrap">
-                <span class="tag">Snowflake</span><span class="tag">PostgreSQL</span><span class="tag">MySQL</span>
-                <span class="tag">MongoDB</span><span class="tag">DynamoDB</span>
-              </div>
-            </div>
-
-            <div class="project">
-              <div style="font-weight:950;">🤖 AI / LLM</div>
-              <div class="tag-wrap">
-                <span class="tag">RAG</span><span class="tag">LangChain</span><span class="tag">HuggingFace</span>
-                <span class="tag">Embeddings</span><span class="tag">Pinecone</span>
-              </div>
-            </div>
-
-            <div class="project">
-              <div style="font-weight:950;">📊 Analytics & BI</div>
-              <div class="tag-wrap">
-                <span class="tag">Power BI</span><span class="tag">Tableau</span><span class="tag">DAX</span>
-                <span class="tag">Streamlit</span><span class="tag">Plotly</span>
-              </div>
-            </div>
-
-            <div class="project">
-              <div style="font-weight:950;">💻 Programming</div>
-              <div class="tag-wrap">
-                <span class="tag">Python</span><span class="tag">SQL</span><span class="tag">PySpark</span>
-                <span class="tag">Java</span><span class="tag">R</span>
-              </div>
-            </div>
-          </div>
-        </section>
-      `,
-
-      "/projects": `
-        <section class="card">
-          <h2>Projects</h2>
-          <p>Selected work with GitHub links.</p>
-
-          <div class="grid2" style="margin-top:16px;">
-            <div class="project">
-              <div style="font-weight:950;">🤖 RAG Document Intelligence System</div>
-              <p style="margin-top:8px;">Ingestion + chunking + embeddings + semantic retrieval with LLM responses.</p>
-              <div class="tag-wrap">
-                <span class="tag">FastAPI</span><span class="tag">Streamlit</span><span class="tag">Pinecone</span>
-                <span class="tag">LangChain</span><span class="tag">HuggingFace</span>
-              </div>
-              <a href="https://github.com/Amrutanaik98/RAG-Document-Intelligence-System" target="_blank" rel="noreferrer">View →</a>
-            </div>
-
-            <div class="project">
-              <div style="font-weight:950;">✈️ Flight Data Analytics Pipeline</div>
-              <p style="margin-top:8px;">Streaming + batch processing with orchestration and ML delay prediction.</p>
-              <div class="tag-wrap">
-                <span class="tag">AWS</span><span class="tag">Airflow</span><span class="tag">PySpark</span>
-                <span class="tag">Terraform</span><span class="tag">XGBoost</span>
-              </div>
-              <a href="https://github.com/Amrutanaik98/Flight_Data_Analysis" target="_blank" rel="noreferrer">View →</a>
-            </div>
-
-            <div class="project">
-              <div style="font-weight:950;">🍽️ Food Inspection Analytics</div>
-              <p style="margin-top:8px;">Medallion ELT pipeline + BI reporting for inspection trends.</p>
-              <div class="tag-wrap">
-                <span class="tag">ADF</span><span class="tag">Databricks</span><span class="tag">Snowflake</span><span class="tag">Power BI</span>
-              </div>
-              <a href="https://github.com/Amrutanaik98/Food_Inspection-Dallas_Chicago_BusinessIntelligence" target="_blank" rel="noreferrer">View →</a>
-            </div>
-
-            <div class="project">
-              <div style="font-weight:950;">🎬 IMDb Business Intelligence</div>
-              <p style="margin-top:8px;">Star schema + DAX measures + interactive dashboards.</p>
-              <div class="tag-wrap">
-                <span class="tag">SQL</span><span class="tag">Power BI</span><span class="tag">Azure</span><span class="tag">Snowflake</span>
-              </div>
-              <a href="https://github.com/Amrutanaik98/IMDb_Business_Intelligence" target="_blank" rel="noreferrer">View →</a>
-            </div>
-          </div>
-        </section>
-      `,
-
-      "/contact": `
-        <section class="card">
-          <h2>Contact</h2>
-          <p>If you’re hiring for Data Engineering / Analytics Engineering roles, I’d love to connect.</p>
-
-          <div class="grid3" style="margin-top:16px;">
-            <a class="project" href="mailto:amrutanaik1198@gmail.com" style="text-decoration:none; color:inherit;">
-              <div style="font-weight:950;">📧 Email</div>
-              <p style="margin-top:8px;">amrutanaik1198@gmail.com</p>
-            </a>
-
-            <a class="project" href="https://www.linkedin.com/in/amruta-naik-6a9091183" target="_blank" rel="noreferrer" style="text-decoration:none; color:inherit;">
-              <div style="font-weight:950;">💼 LinkedIn</div>
-              <p style="margin-top:8px;">Connect with me</p>
-            </a>
-
-            <a class="project" href="https://github.com/Amrutanaik98" target="_blank" rel="noreferrer" style="text-decoration:none; color:inherit;">
-              <div style="font-weight:950;">💻 GitHub</div>
-              <p style="margin-top:8px;">Projects & code</p>
-            </a>
-          </div>
-        </section>
-      `
-    };
-
-    // -------------------- ROUTER --------------------
-    function getRoute() {
-      const hash = location.hash.replace("#", "");
-      return hash || "/";
-    }
-
-    function render() {
-      const route = getRoute();
-      const app = document.getElementById("app");
-      app.innerHTML = pages[route] || pages["/"];
-
-      // active nav highlighting
-      document.querySelectorAll("#navLinks a").forEach(a => {
-        a.classList.toggle("active", a.dataset.route === route);
-      });
-
-      // reset scroll to top on page change
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    window.addEventListener("hashchange", render);
-    window.addEventListener("load", () => {
-      if (!location.hash) location.hash = "#/";
-      render();
-    });
-  </script>
+function getRoute(){return location.hash.replace("#","")||"/"}
+function render(){
+  const r=getRoute(),app=document.getElementById("app");
+  app.style.opacity=0;
+  setTimeout(()=>{
+    app.innerHTML=pages[r]||pages["/"];
+    app.style.opacity=1;
+    document.querySelectorAll("#navLinks a").forEach(a=>a.classList.toggle("active",a.dataset.route===r));
+    window.scrollTo({top:0,behavior:"smooth"});
+  },150);
+}
+document.getElementById("app").style.transition="opacity .3s ease";
+window.addEventListener("hashchange",render);
+window.addEventListener("load",()=>{if(!location.hash)location.hash="#/";render()});
+</script>
 </body>
 </html>
