@@ -98,6 +98,15 @@ section{animation:fadeUp .6s ease both}
 .proj-impact{margin-top:10px;padding:8px 14px;border-radius:10px;background:rgba(34,211,153,.06);border:1px solid rgba(34,211,153,.15);
   font-size:.82rem;color:var(--green);font-weight:600}
 
+/* Featured project — spans full width */
+.proj-card.featured{grid-column:1/-1;background:rgba(108,92,231,.04);border-color:rgba(108,92,231,.18)}
+.proj-card.featured::before{opacity:.4}
+.featured-badge{display:inline-block;padding:3px 10px;border-radius:6px;font-size:.72rem;font-weight:700;
+  background:linear-gradient(135deg,var(--accent),var(--cyan));color:#fff;margin-bottom:10px;letter-spacing:.5px;text-transform:uppercase}
+.featured-arch{margin-top:12px;padding:10px 14px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);
+  font-size:.8rem;color:var(--muted);font-weight:500;line-height:1.8}
+.featured-arch strong{color:var(--accent2)}
+
 /* About */
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
 .about-text{font-size:1.05rem;color:var(--muted);font-weight:500}
@@ -143,6 +152,7 @@ footer strong{color:var(--text)}
   .skills-grid,.contact-cards{grid-template-columns:1fr}
   .projects-grid,.about-grid{grid-template-columns:1fr}
   .nav-links a{padding:6px 10px;font-size:.8rem}
+  .proj-card.featured{grid-column:unset}
 }
 </style>
 </head>
@@ -187,7 +197,7 @@ const pages={
     <div>
       <div class="hero-sub">DATA ENGINEER · DATA ANALYTICS ENGINEER</div>
       <h1>Amruta Chandrakant Naik</h1>
-      <p>Data Engineer with 3 years designing enterprise-scale data systems, building ETL/ELT pipelines, and implementing data quality frameworks across AWS, Azure, Snowflake, Kafka, and Databricks — with hands-on experience in GenAI, LLMs, and RAG systems.</p>
+      <p>Data Engineer with 3 years designing enterprise-scale data systems, building ETL/ELT pipelines, and implementing data quality frameworks across AWS, Azure, GCP, Snowflake, Kafka, and Databricks — with hands-on experience in GenAI, LLMs, and RAG systems.</p>
       <div class="hero-btns">
         <a class="btn btn-primary" href="#/projects">View Projects →</a>
         <a class="btn btn-outline" href="#/contact">Get in Touch</a>
@@ -197,7 +207,7 @@ const pages={
     </div>
     <div class="stats-grid">
       <div class="stat-card"><strong>3+</strong><span>Years Experience</span></div>
-      <div class="stat-card"><strong>8+</strong><span>Major Projects</span></div>
+      <div class="stat-card"><strong>9+</strong><span>Major Projects</span></div>
       <div class="stat-card"><strong>20+</strong><span>Technologies</span></div>
       <div class="stat-card"><strong>MS</strong><span>Northeastern University</span></div>
     </div>
@@ -300,7 +310,7 @@ const pages={
       <div class="icon">☁️</div>
       <h3>Cloud & Data Platforms</h3>
       <div class="skill-tags">
-        <span class="skill-tag">AWS</span><span class="skill-tag">Azure</span><span class="skill-tag">Snowflake</span>
+        <span class="skill-tag">AWS</span><span class="skill-tag">Azure</span><span class="skill-tag">GCP</span><span class="skill-tag">Snowflake</span>
         <span class="skill-tag">Databricks</span><span class="skill-tag">Delta Lake</span>
       </div>
     </div>
@@ -374,6 +384,24 @@ const pages={
   <p class="section-sub">Selected work — click through to GitHub.</p>
   <div class="projects-grid">
 
+    <div class="glass proj-card featured">
+      <div class="featured-badge">⭐ Featured Project</div>
+      <h3>🌍 Climate Intelligence Platform for Extreme Weather Prediction</h3>
+      <p>Production-style climate intelligence platform ingesting real-time weather data from <strong style="color:var(--text)">80+ cities across 6 continents</strong>. Uses Spark Structured Streaming to process data and ML models (XGBoost classification + LSTM forecasting) to predict extreme weather events, with AI-powered natural language insights via Groq LLM and a RAG chatbot.</p>
+      <div class="skill-tags" style="margin-bottom:12px">
+        <span class="skill-tag">Apache Kafka</span><span class="skill-tag">Spark Streaming</span><span class="skill-tag">GCP</span>
+        <span class="skill-tag">Airflow</span><span class="skill-tag">XGBoost</span><span class="skill-tag">LSTM</span>
+        <span class="skill-tag">MLflow</span><span class="skill-tag">Groq LLM</span><span class="skill-tag">ChromaDB</span>
+        <span class="skill-tag">FastAPI</span><span class="skill-tag">Streamlit</span><span class="skill-tag">Terraform</span>
+        <span class="skill-tag">Docker</span><span class="skill-tag">PostgreSQL</span>
+      </div>
+      <div class="featured-arch">
+        <strong>Architecture:</strong> OpenWeatherMap API → Kafka Streaming (Avro + Schema Registry) → Spark Structured Streaming → Medallion Data Lake (Bronze/Silver/Gold) → PostgreSQL Star Schema → ML Models → FastAPI REST API → Streamlit Dashboard → Groq LLM anomaly explanation & RAG chatbot
+      </div>
+      <div class="proj-impact" style="margin-top:12px">🌐 80+ cities · 6 continents · Real-time streaming · Extreme weather prediction</div>
+      <a class="proj-link" href="https://github.com/Amrutanaik98/Climate-Intelligence-Platform-for-Extreme-Weather-Prediction" target="_blank" style="margin-top:12px;display:inline-flex">View on GitHub →</a>
+    </div>
+
     <div class="glass proj-card">
       <h3>🤖 RAG Document Intelligence System</h3>
       <p>End-to-end RAG pipeline with multi-source document ingestion, 384-dim embeddings, and Pinecone vector indexing achieving &lt;50ms search latency. Integrates 5 HuggingFace LLMs (Mistral, Zephyr, Phi) with a FastAPI backend and Streamlit frontend for context-aware Q&A.</p>
@@ -428,7 +456,7 @@ const pages={
     </div>
 
     <div class="glass proj-card">
-      <h3>🌾 Climate Impact on Crop Yields</h3>
+      <h3>🌾 Climate Impact on Global Crop Yields</h3>
       <p>Regression analysis on 60 years of climate-agriculture data with correlation studies, time-series forecasting, statistical hypothesis testing, and multivariate analysis using Scikit-learn.</p>
       <div class="skill-tags" style="margin-bottom:12px">
         <span class="skill-tag">Python</span><span class="skill-tag">Scikit-learn</span><span class="skill-tag">Pandas</span>
